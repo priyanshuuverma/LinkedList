@@ -15,25 +15,27 @@ class Node{
   }
 }
 class Main {
-  public static Node oddeven(Node head1){
-   List<Integer> arr = new ArrayList<>();
-        Node temp = head1;
-     while (temp != null && temp.next != null) {
-            arr.add(temp.data); // Odd positions
-            temp = temp.next.next;
-        }
-        if (temp != null) arr.add(temp.data); // Add last odd if exists
- temp = head1.next;
-        while (temp != null && temp.next != null) {
-            arr.add(temp.data); // Even positions
-            temp = temp.next.next;
-        }
-        if (temp != null) arr.add(temp.data); // Add last node if odd length
+  public static Node oddeven(Node head){
+  if (head == null || head.next == null) return head;
 
-       
-       
-  return changeLL(head1, arr);
-    
+    Node odd = head;
+    Node even = head.next;
+    Node evenHead = even;
+
+    while (even != null && even.next != null) {
+      odd.next = even.next;
+      odd.next.back = odd;
+      odd = odd.next;
+
+      even.next = odd.next;
+      if (even.next != null) even.next.back = even;
+      even = even.next;
+    }
+
+    odd.next = evenHead;
+    if (evenHead != null) evenHead.back = odd;
+
+    return head;
   }
   public static void printLL(Node temp){
     Node pre = temp;
@@ -54,7 +56,7 @@ class Main {
     return temp;
   }
   public static void main(String[] args){
-   List<Integer> arr = Arrays.asList(4, 5, 3, 8);
+   List<Integer> arr = Arrays.asList(4, 5);
    Node head1 = new Node(arr.get(0));
     head1 = changeLL(head1, arr);
     printLL(head1);
