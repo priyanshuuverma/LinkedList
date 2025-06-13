@@ -23,13 +23,15 @@ class Main {
     Node front = head.next;
     front.next = head;
     head.next = null;
-     
+    head.back = front;
+    front.back = newHead;
+    
     return  newHead;
     }
   public static void printLL(Node temp){
     Node pre = temp;
     while(pre != null){
-      System.out.print(pre.data + " ");
+      System.out.println( pre.back + " " + pre.next +  "  " + pre.data + " ");
       pre = pre.next;
     }
     System.out.println();
@@ -48,6 +50,8 @@ class Main {
    List<Integer> arr = Arrays.asList(1,2,3,4,5);
    Node head1 = new Node(arr.get(0));
     head1 = changeLL(head1, arr);
-    printLL(reverse(head1));
+   
+ printLL(reverse(head1));
+
   }
 }
